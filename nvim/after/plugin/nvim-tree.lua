@@ -1,14 +1,15 @@
+vim.opt.termguicolors = true
 require("nvim-tree").setup({
 	sort_by = "case_sensitive",
-	view = { adaptive_size = false, mappings = { list = {} } },
+	view = { adaptive_size = false },
 	filters = { dotfiles = false, custom = { "^.git$" } },
 	git = { ignore = false },
 	renderer = {
 		add_trailing = true,
 		group_empty = true,
-		highlight_git = true,
+		highlight_git = false,
 		full_name = false,
-		highlight_opened_files = "icon",
+	    highlight_opened_files = "icon",
 		root_folder_modifier = ":~",
 		indent_markers = {
 			enable = true,

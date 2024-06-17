@@ -15,7 +15,7 @@ require'barbar'.setup {
     buffer_number = false,
     button = '',
     diagnostics = {
-      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = '🚫'},
+      [vim.diagnostic.severity.ERROR] = {enabled = true},
       [vim.diagnostic.severity.WARN] = {enabled = true},
       [vim.diagnostic.severity.INFO] = {enabled = false},
       [vim.diagnostic.severity.HINT] = {enabled = true},
@@ -101,5 +101,8 @@ map('n', '<S-A-l>', '<Cmd>BufferMoveNext<CR>', opts)
 -- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
 -- Pin/unpin buffer
 map('n', '<C-o>', '<Cmd>BufferPin<CR>', opts)
+-- Close buffer
+map('n', '<C-w>', '<Cmd>BufferClose!<CR>', opts)
+map('n', '<C-q>', '<Cmd>BufferCloseAllButCurrentOrPinned<CR>', opts)
 -- Magic buffer-picking mode
 map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
