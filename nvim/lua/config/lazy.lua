@@ -17,18 +17,12 @@ require("lazy").setup( {
         {  "EdenEast/nightfox.nvim" },
 		{  "nvim-treesitter/nvim-treesitter"  },
 		{  "akinsho/toggleterm.nvim"  },
-        {
-            "nvim-tree/nvim-tree.lua",
-            version = "*",
-            lazy = false,
-            dependencies = {
-                "nvim-tree/nvim-web-devicons",
-            }
-        },
+        {  "nvim-tree/nvim-web-devicons"  },
         {  "nvim-treesitter/nvim-treesitter"  },
         {  "nvim-telescope/telescope.nvim"  },
         {  "nvim-telescope/telescope-fzf-native.nvim", build = 'make'  },
         {  "nvim-telescope/telescope-ui-select.nvim"  },
+        {  "nvim-telescope/telescope-file-browser.nvim"  },
         {  "rmagatti/auto-session"   },
 		{  "rktjmp/shenzhen-solitaire.nvim"  },
         {  "folke/which-key.nvim"  },

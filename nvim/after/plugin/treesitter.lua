@@ -11,6 +11,7 @@ require("nvim-treesitter.configs").setup({
 		"toml",
 		"make",
 		"vim",
+        "verilog",
 	},
 	sync_install = false,
 	auto_install = true,

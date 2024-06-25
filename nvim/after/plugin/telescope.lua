@@ -48,15 +48,23 @@ require('telescope').setup({
           n = { ["q"] = require("telescope.actions").close },
         },
     },
+    extensions = {
+        file_browser = {
+            initial_mode = "normal",
+            hijack_netrw = true,
+        },
+    },
 	pickers = {
 		find_files = {
-			-- search for hidden files but ignore files in .git folder 
+			-- search for hidden files but ignore files in .git folder
 			find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
 		},
 	},
 })
-vim.keymap.set("n", "<leader>f", require('telescope.builtin').find_files, {desc = "Find files (Telescope)"})
+vim.keymap.set("n", "<leader>f", ":Telescope file_browser<CR>", {desc = "File Browser"})
+vim.keymap.set("n", "<leader>d", require('telescope.builtin').find_files, {desc = "File Grep"})
 vim.keymap.set("n", "<Leader>g", require('telescope.builtin').live_grep, {desc = "Workdir Live Grep"})
 
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('file_browser')
 require("telescope").load_extension("ui-select")

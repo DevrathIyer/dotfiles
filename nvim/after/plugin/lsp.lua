@@ -1,5 +1,4 @@
 local lsp = require('lsp-zero').preset({})
-local navic = require("nvim-navic")
 
 lsp.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
@@ -8,39 +7,31 @@ lsp.on_attach(function(client, bufnr)
         buffer = bufnr,
         preserve_mappings = false
       })
-    if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
-    end
-
 end)
 
-lsp.ensure_installed({
-    'pyright',
-    'ruff_lsp'
+vim.diagnostic.config({
+    update_in_insert = true,
 })
 
-lsp.configure("pyright", {
-    handlers = {
-        ["textDocument/publishDiagnostics"] = function() end,
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        'ruff_lsp',
+        'verible',
     },
-    on_attach = function(client, _)
-        client.server_capabilities.codeActionProvider = false
-    end,
-    settings = {
-        pyright = {
-          disableOrganizeImports = true,
-        },
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                typeCheckingMode = "basic",
-                useLibraryCodeForTypes = true,
-            },
-        }
-    }
+    handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
+
+        verible = function()
+            require('lspconfig').verible.setup({
+                root_dir = function() return vim.loop.cwd() end
+            })
+        end,
+    },
 })
 
-lsp.setup()
 
 local cmp = require('cmp')
 
