@@ -1,3 +1,18 @@
+local select_one_or_multi = function(prompt_bufnr)
+  local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+  local multi = picker:get_multi_selection()
+  if not vim.tbl_isempty(multi) then
+    require('telescope.actions').close(prompt_bufnr)
+    for _, j in pairs(multi) do
+      if j.path ~= nil then
+        vim.cmd(string.format('%s %s', 'edit', j.path))
+      end
+    end
+  else
+    require('telescope.actions').select_default(prompt_bufnr)
+  end
+end
+
 require('telescope').setup({
     defaults = {
         vimgrep_arguments = {
@@ -45,7 +60,9 @@ require('telescope').setup({
         -- Developer configurations: Not meant for general override
         buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
         mappings = {
-          n = { ["q"] = require("telescope.actions").close },
+            i = {
+                ['<CR>'] = select_one_or_multi,
+              }
         },
     },
     extensions = {
@@ -59,11 +76,18 @@ require('telescope').setup({
 			-- search for hidden files but ignore files in .git folder
 			find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
 		},
+        buffers = {
+            ignore_current_buffer = true,
+            initial_mode = "normal",
+            sort_mru = true,
+        },
 	},
 })
 vim.keymap.set("n", "<leader>f", ":Telescope file_browser<CR>", {desc = "File Browser"})
 vim.keymap.set("n", "<leader>d", require('telescope.builtin').find_files, {desc = "File Grep"})
 vim.keymap.set("n", "<Leader>g", require('telescope.builtin').live_grep, {desc = "Workdir Live Grep"})
+vim.keymap.set("n", "<Leader>j", require('telescope.builtin').buffers, {desc = "Open Buffers"})
+vim.keymap.set("n", "<Leader>k", require('telescope.builtin').quickfix, {desc = "Quickfix Menu"})
 
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
