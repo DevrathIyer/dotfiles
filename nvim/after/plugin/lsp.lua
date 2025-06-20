@@ -16,20 +16,13 @@ vim.diagnostic.config({
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
-        'ruff_lsp',
+        'ruff',
         'verible',
     },
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
-        end,
+})
 
-        verible = function()
-            require('lspconfig').verible.setup({
-                root_dir = function() return vim.loop.cwd() end
-            })
-        end,
-    },
+vim.lsp.config('ruff', {
+  settings = { },
 })
 
 
@@ -52,9 +45,6 @@ cmp.setup({
     completion = {
         completeopt = "menu,menuone",
       },
-      experimental = {
-        ghost_text = true,
-      },
       window = {
         completion = {
           side_padding = 0,
@@ -67,36 +57,14 @@ cmp.setup({
         },
       },
       mapping = {
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.close(),
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-h>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-l>"] = cmp.mapping.scroll_docs(4),
         ["<CR>"] = cmp.mapping.confirm {
           behavior = cmp.ConfirmBehavior.Insert,
           select = true,
         },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          else
-            fallback()
-          end
-        end, {
-          "i",
-          "s",
-        }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          else
-            fallback()
-          end
-        end, {
-          "i",
-          "s",
-        }),
       },
 
     sources = {

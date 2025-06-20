@@ -17,7 +17,6 @@ require("lazy").setup( {
         {  "nvim-treesitter/nvim-treesitter"  },
         {  "EdenEast/nightfox.nvim" },
         {  "nvim-tree/nvim-web-devicons"  },
-        {  "akinsho/toggleterm.nvim"  },
         {  "nvim-telescope/telescope.nvim"  },
         {  "nvim-telescope/telescope-fzf-native.nvim", build = 'make'  },
         {  "nvim-telescope/telescope-ui-select.nvim"  },

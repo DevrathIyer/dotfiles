@@ -13,6 +13,8 @@ local select_one_or_multi = function(prompt_bufnr)
   end
 end
 
+local actions = require('telescope.actions')
+
 require('telescope').setup({
     defaults = {
         vimgrep_arguments = {
@@ -62,6 +64,9 @@ require('telescope').setup({
         mappings = {
             i = {
                 ['<CR>'] = select_one_or_multi,
+              },
+            n = {
+                ['<C-Tab>'] = actions.send_selected_to_qflist,
               }
         },
     },
@@ -80,6 +85,9 @@ require('telescope').setup({
             ignore_current_buffer = true,
             initial_mode = "normal",
             sort_mru = true,
+        },
+        quickfix = {
+            initial_mode = "normal",
         },
 	},
 })
