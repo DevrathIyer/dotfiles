@@ -1,14 +1,3 @@
-local lsp = require('lsp-zero').preset({})
-
-lsp.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-    lsp.default_keymaps({
-        buffer = bufnr,
-        preserve_mappings = false
-      })
-end)
-
 vim.diagnostic.config({
     update_in_insert = true,
 })
@@ -20,11 +9,6 @@ require('mason-lspconfig').setup({
         'verible',
     },
 })
-
-vim.lsp.config('ruff', {
-  settings = { },
-})
-
 
 local cmp = require('cmp')
 
